@@ -8,4 +8,12 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('Angular');
+
+  foo(): string {
+    return '';
+  }
+
+  bar(): void {
+    const bar = this.foo;
+  }
 }
