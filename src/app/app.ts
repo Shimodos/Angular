@@ -2,18 +2,11 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
+  imports: [RouterOutlet],
   templateUrl: './app.html',
 })
 export class App {
-  protected readonly title = signal('Angular');
-
-  foo(): string {
-    return '';
-  }
-
-  bar(): void {
-    const bar = this.foo;
-  }
+  // выводит надпись ангуляр
+  title = signal('Angular');
 }
