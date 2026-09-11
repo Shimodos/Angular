@@ -1,0 +1,22 @@
+{
+  // В глобальных настройках prettier.prettierPath жёстко указывает на Prettier
+  // внутри nvm. Здесь перекрываем его, чтобы использовался Prettier из проекта:
+  // только он видит плагин @ianvs/prettier-plugin-sort-imports из node_modules.
+  "prettier.prettierPath": "./node_modules/prettier",
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
