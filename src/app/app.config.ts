@@ -3,10 +3,13 @@ import {
   importProvidersFrom,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
+
+import { provideStore } from '@ngrx/store';
+
 import { routes } from './app.routes';
 import { AuthModule } from './auth/auth.module';
-import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +18,7 @@ export const appConfig: ApplicationConfig = {
     // Подтягивает маршруты из AuthModule (RouterModule.forChild) в корневой роутер.
     importProvidersFrom(AuthModule),
     provideClientHydration(),
+    // Аналог StoreModule.forRoot({}) из курса.
+    provideStore(),
   ],
 };
