@@ -7,7 +7,7 @@ import {
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
-import { provideStore } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
@@ -20,8 +20,9 @@ export const appConfig: ApplicationConfig = {
     // Подтягивает маршруты из AuthModule (RouterModule.forChild) в корневой роутер.
     importProvidersFrom(AuthModule),
     provideClientHydration(),
-    // Аналог StoreModule.forRoot({}) из курса.
-    provideStore(),
+    // StoreModule.forRoot, а не provideStore(): StoreModule.forFeature в AuthModule
+    // требует StoreRootModule, а его регистрирует только forRoot.
+    importProvidersFrom(StoreModule.forRoot({})),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   ],
 };
