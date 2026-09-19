@@ -8,6 +8,7 @@ import {
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 
+import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
@@ -25,8 +26,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     importProvidersFrom(StoreModule.forRoot({})),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    // provideHttpClient(withInterceptorsFromDi())   // для class-интерцепторов, как в курсе
-    // // или
-    // provideHttpClient(withInterceptors([authInterceptor]))   // функциональный стиль
+    importProvidersFrom(EffectsModule.forRoot([])),
   ],
 };

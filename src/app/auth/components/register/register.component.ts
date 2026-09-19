@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     console.log(this.form.value);
     const request: RegisterRequestInterface = { user: this.form.value };
-    this.store.dispatch(registerAction(request));
+    this.store.dispatch(registerAction({ request }));
     this.authService.register(request).subscribe(
       (user) => {
         console.log('User registered successfully:', user);
