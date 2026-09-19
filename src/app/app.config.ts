@@ -1,3 +1,4 @@
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -13,16 +14,19 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { AuthModule } from './auth/auth.module';
 
+// import { authInterceptor } from './auth/services/auth.interceptor';
+// import { withInterceptorsFromDi } from '@angular/common/http';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    // Подтягивает маршруты из AuthModule (RouterModule.forChild) в корневой роутер.
     importProvidersFrom(AuthModule),
     provideClientHydration(),
-    // StoreModule.forRoot, а не provideStore(): StoreModule.forFeature в AuthModule
-    // требует StoreRootModule, а его регистрирует только forRoot.
     importProvidersFrom(StoreModule.forRoot({})),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    // provideHttpClient(withInterceptorsFromDi())   // для class-интерцепторов, как в курсе
+    // // или
+    // provideHttpClient(withInterceptors([authInterceptor]))   // функциональный стиль
   ],
 };
