@@ -1,0 +1,44 @@
+<div class="auth-page">
+  <div class="auth-page__content">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign In</h1>
+        <p class="text-xs-center">
+          <a href="/register">Don't have an account?</a>
+        </p>
+        @if (backendErrors$ | async; as backendErrors) {
+          <mc-home-page-error-messages
+            [backendErrors]="backendErrors"
+          ></mc-home-page-error-messages>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input
+              type="email"
+              class="form-control form-control-lg"
+              placeholder="Email"
+              formControlName="email"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              placeholder="Password"
+              formControlName="password"
+            />
+          </div>
+          <button
+            type="submit"
+            /* [disabled]="isSubmitting$ | async" */
+            class="btn btn-primary btn-lg pull-xs-right"
+          >
+            Sign In
+          </button>
+        </form>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>
