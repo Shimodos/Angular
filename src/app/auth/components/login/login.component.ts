@@ -10,7 +10,6 @@ import { AuthService } from '../../services/auth.service';
 import { loginAction } from '../../store/actions/login.action';
 import { isSubmittingSelector, validationErrorsSelector } from '../../store/selectors';
 import { LoginRequestInterface } from '../../types/loginRequest.interface';
-import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 
 @Component({
   selector: 'mc-login',
