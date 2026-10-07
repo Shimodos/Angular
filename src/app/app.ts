@@ -1,6 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+
+import { getCurrentUserAction } from './auth/store/actions/getCurrentUser.action';
 import { TopBarModule } from './shared/modules/topBar/topBar.module';
 
 @Component({
@@ -8,7 +11,11 @@ import { TopBarModule } from './shared/modules/topBar/topBar.module';
   imports: [RouterOutlet, TopBarModule],
   templateUrl: './app.html',
 })
-export class App {
+export class App implements OnInit {
   // выводит надпись ангуляр
+  constructor(private store: Store) {}
   title = signal('Angular');
+  ngOnInit(): void {
+    this.store.dispatch(getCurrentUserAction());
+  }
 }
