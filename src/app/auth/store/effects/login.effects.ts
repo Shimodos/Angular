@@ -6,7 +6,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { PersistanceService } from '../../../shared/services/persistance.service';
+import { PersistenceService } from '../../../shared/services/persistance.service';
 import { CurrentUserInterface } from '../../../shared/types/currentUser.interface';
 import { AuthService } from '../../services/auth.service';
 import { loginAction, loginFailureAction, loginSuccessAction } from '../actions/login.action';
@@ -15,7 +15,7 @@ import { loginAction, loginFailureAction, loginSuccessAction } from '../actions/
 export class LoginEffects {
   private actions$ = inject(Actions);
   private authService = inject(AuthService);
-  private persistanceService = inject(PersistanceService);
+  private persistanceService = inject(PersistenceService);
   private router = inject(Router);
 
   login$ = createEffect(() =>

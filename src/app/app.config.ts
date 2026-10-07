@@ -1,4 +1,11 @@
-import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+// import { authInterceptor } from './auth/services/auth.interceptor';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -14,14 +21,18 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { AuthModule } from './auth/auth.module';
-
-// import { authInterceptor } from './auth/services/auth.interceptor';
-// import { withInterceptorsFromDi } from '@angular/common/http';
+import { AuthInterceptorService } from './shared/services/authinterceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
     importProvidersFrom(AuthModule),
     provideClientHydration(),
     importProvidersFrom(StoreModule.forRoot({})),
