@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+// Тема вешает outline на a:focus — убираем его при клике мышью,
+// но оставляем при навигации с клавиатуры (:focus-visible).
+a:focus:not(:focus-visible) {
+  outline: none;
+}

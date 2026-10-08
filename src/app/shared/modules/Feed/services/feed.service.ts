@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { environment } from '../../../../../environments/environment.local';
+import { environment } from '../../../../../environments/environment';
 import { GetFeedResponseInterface } from './../type/getFeedResponse.interface';
 
 @Injectable({
@@ -12,7 +12,6 @@ import { GetFeedResponseInterface } from './../type/getFeedResponse.interface';
 export class FeedService {
   constructor(private http: HttpClient) {}
   getFeed(url: string): Observable<GetFeedResponseInterface> {
-
     const fullUrl = environment.apiUrl + url;
 
     return new Observable<GetFeedResponseInterface>((subscriber) => {
@@ -23,7 +22,7 @@ export class FeedService {
         },
         error: (error) => {
           subscriber.error(error);
-        }
+        },
       });
     });
   }

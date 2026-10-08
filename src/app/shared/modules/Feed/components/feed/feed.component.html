@@ -1,1 +1,38 @@
-<h1>Feed</h1>
+@if (isLoading$ | async) {
+  <div>
+    <h1>Loading...</h1>
+  </div>
+}
+
+@if (error$ | async; as error) {
+  <div>
+    <h1>Error: {{ error }}</h1>
+  </div>
+}
+
+@if (feed$ | async; as feed) {
+  <div>
+    @for (article of feed.articles; track article.slug) {
+      <div class="article-preview">
+        <div class="article-meta">
+          <a [routerLink]="['/profile', article.author.username]">
+            <img [src]="article.author.image" />
+          </a>
+          <div class="info">
+            <a [routerLink]="['/profile', article.author.username]" class="author">
+              {{ article.author.username }}
+            </a>
+            <span class="date">{{ article.createdAt | date: 'mediumDate' }}</span>
+          </div>
+          <div class="pull-xs-right">ADD TO FAVORITES</div>
+        </div>
+        <a [routerLink]="['/article', article.slug]" class="preview-link">
+          <h1>{{ article.title }}</h1>
+          <p>{{ article.description }}</p>
+          <span>Read more...</span>
+        </a>
+      </div>
+      Pagination
+    }
+  </div>
+}
