@@ -1,13 +1,8 @@
 @if (isLoading$ | async) {
-  <div>
-    <h1>Loading...</h1>
-  </div>
+  <mc-loading></mc-loading>
 }
-
 @if (error$ | async; as error) {
-  <div>
-    <h1>Error: {{ error }}</h1>
-  </div>
+  <mc-error-message></mc-error-message>
 }
 
 @if (feed$ | async; as feed) {
