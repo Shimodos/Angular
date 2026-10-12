@@ -27,7 +27,12 @@
           <span>Read more...</span>
         </a>
       </div>
-      Pagination
     }
+    <mc-pagination
+      [total]="feed.articlesCount"
+      [currentPage]="currentPage"
+      [limit]="limit"
+      [url]="baseUrl"
+    ></mc-pagination>
   </div>
 }
