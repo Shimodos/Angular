@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { select, Store } from '@ngrx/store';
+import queryString from 'query-string';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../../../../environments/environment.local';
@@ -35,7 +36,6 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeValues();
-    this.fetchFeed();
     this.initializeListeners();
   }
 
@@ -49,18 +49,19 @@ export class FeedComponent implements OnInit {
   initializeListeners(): void {
     this.route.queryParams.subscribe((params) => {
       this.currentPage = Number(params['page'] || '1');
-      console.log('Current Page:', this.currentPage);
-      const offset = (this.currentPage - 1) * this.limit;
-      this.fetchFeedWithParams(offset);
+      this.fetchFeedWithParams();
     });
   }
 
-  fetchFeedWithParams(offset: number): void {
-    const apiUrlWithParams = `${this.apiUrlProps}?limit=${this.limit}&offset=${offset}`;
+  fetchFeedWithParams(): void {
+    const offset = (this.currentPage - 1) * this.limit;
+    const parsedUrl = queryString.parseUrl(this.apiUrlProps);
+    const stringifiedParams = queryString.stringify({
+      limit: this.limit,
+      offset,
+      ...parsedUrl.query,
+    });
+    const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`;
     this.store.dispatch(getFeedAction({ url: apiUrlWithParams }));
-  }
-
-  fetchFeed(): void {
-    this.store.dispatch(getFeedAction({ url: this.apiUrlProps }));
   }
 }

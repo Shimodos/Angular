@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { UtilsService } from '../../../services/utils.service';
+
 @Component({
   selector: 'mc-pagination',
   standalone: false,
@@ -12,8 +14,15 @@ export class PaginationComponent {
   @Input('currentPage') currentPageProps: number;
   @Input('url') urlProps: string;
 
+  pageCount: number;
+
+  constructor(private utilsService: UtilsService) {}
+
+  ngOnInit() {
+    this.pageCount = Math.ceil(this.totalProps / this.limitProps);
+  }
+
   get pages(): number[] {
-    const pagesCount = Math.ceil(this.totalProps / this.limitProps);
-    return Array.from({ length: pagesCount }, (_, index) => index + 1);
+    return this.utilsService.range(1, this.pageCount);
   }
 }
