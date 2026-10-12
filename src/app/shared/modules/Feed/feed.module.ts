@@ -6,12 +6,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { ErrorMesegeModule } from '../errorMesege/errorMesege.module';
-import { reducers } from '../Feed/store/reducers';
 import { LoadingModule } from '../loading/loading.module';
 import { PaginationModule } from '../pagination/pagination.module';
 import { FeedComponent } from './components/feed/feed.component';
 import { FeedService } from './services/feed.service';
 import { GetFeedEffects } from './store/effects/getFeed.effects';
+import { reducers } from './store/reducers';
 
 @NgModule({
   imports: [
