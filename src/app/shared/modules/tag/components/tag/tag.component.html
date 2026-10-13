@@ -1,0 +1,17 @@
+@if (isLoading$ | async) {
+  <mc-loading></mc-loading>
+}
+@if (error$ | async) {
+  <mc-error-message></mc-error-message>
+}
+
+@if (tags$ | async; as tags) {
+  <div class="sidebar">
+    <p>Popular Tags</p>
+    <div class="tag-list">
+      @for (tag of tags; track tag) {
+        <a [routerLink]="['/tags', tag]" class="tag-default tag-pill">{{ tag }}</a>
+      }
+    </div>
+  </div>
+}
