@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { createServer } from 'node:net';
 import { createRequire } from 'node:module';
 
@@ -31,4 +31,10 @@ const child = spawn(process.execPath, [ngBin, 'serve', '--port', String(port), .
   stdio: 'inherit',
 });
 
-child.on('exit', (code) => process.exit(code ?? 0));
+// После остановки dev-сервера (Ctrl+C) чистим кэш сборки .angular/cache,
+// чтобы он не накапливался между запусками.
+child.on('exit', (code) => {
+  console.log('Cleaning Angular build cache...');
+  spawnSync(process.execPath, [ngBin, 'cache', 'clean'], { stdio: 'inherit' });
+  process.exit(code ?? 0);
+});

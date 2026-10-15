@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { select, Store } from '@ngrx/store';
@@ -16,7 +16,7 @@ import { GetFeedResponseInterface } from '../../type/getFeedResponse.interface';
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.scss'],
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnChanges {
   @Input('apiUrl') apiUrlProps: string;
 
   isLoading$: Observable<boolean>;
@@ -49,6 +49,16 @@ export class FeedComponent implements OnInit {
       this.currentPage = Number(params['page'] || '1');
       this.fetchFeedWithParams();
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const isApiUrlChanged =
+      !changes['apiUrlProps'].firstChange &&
+      changes['apiUrlProps'].currentValue !== changes['apiUrlProps'].previousValue;
+
+    if (isApiUrlChanged) {
+      this.fetchFeedWithParams();
+    }
   }
 
   fetchFeedWithParams(): void {

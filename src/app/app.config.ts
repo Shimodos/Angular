@@ -24,6 +24,8 @@ import { routes } from './app.routes';
 import { AuthModule } from './auth/auth.module';
 import { GlobalFeedModule } from './glabalFeed/globalFeed.module';
 import { AuthInterceptorService } from './shared/services/authinterceptor.service';
+import { TagFeedModule } from './tagFeed/tagFeed.module';
+import { YourFeedModule } from './yourFeed/yourFeed.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,7 +37,7 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptorService,
       multi: true,
     },
-    importProvidersFrom(AuthModule, GlobalFeedModule),
+    importProvidersFrom(AuthModule, GlobalFeedModule, YourFeedModule, TagFeedModule),
     provideClientHydration(),
     importProvidersFrom(StoreModule.forRoot({})),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

@@ -1,4 +1,3 @@
-import { routerNavigationAction } from '@ngrx/router-store';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { TagsStateInterface } from '../type/tagsState.interface';
@@ -31,7 +30,6 @@ export const tagsReducer = createReducer(
     isLoading: false,
     error: 'Failed to fetch tags',
   })),
-  on(routerNavigationAction, (): TagsStateInterface => initialState),
 );
 
 export function reducers(state: TagsStateInterface, action: Action) {
