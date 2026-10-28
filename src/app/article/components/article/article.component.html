@@ -1,0 +1,50 @@
+<div class="article-page">
+  @if (isLoading$ | async) {
+    <mc-loading></mc-loading>
+  }
+  @if (error$ | async) {
+    <mc-error-message></mc-error-message>
+  }
+
+  @if (article) {
+    <div class="banner">
+      <div class="container">
+        <h1>{{ article.title }}</h1>
+        <div class="article-meta">
+          <a [routerLink]="['/profile', article.author.username]">
+            <img [src]="article.author.image" />
+          </a>
+          <div class="info">
+            <a [routerLink]="['/profile', article.author.username]" class="author">
+              {{ article.author.username }}
+            </a>
+            <span class="date">{{ article.createdAt | date: 'mediumDate' }}</span>
+            @if (isAuthor$ | async) {
+              <span>
+                <a
+                  [routerLink]="['/articles', article.slug, 'edit']"
+                  class="btn btn-outline-secondary btn-sm"
+                  ><i class="ion-edit">Edit Article</i></a
+                >
+                <a
+                  [routerLink]="['/articles', article.slug, 'delete']"
+                  class="btn btn-outline-danger btn-sm"
+                  ><i class="ion-trash-a">Delete Article</i></a
+                >
+              </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container page">
+      <div class="row article-content">
+        <div class="col-md-12">
+          <p>{{ article.body }}</p>
+          <mc-tag-list [tags]="article.tagList"></mc-tag-list>
+        </div>
+      </div>
+    </div>
+  }
+</div>

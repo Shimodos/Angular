@@ -21,6 +21,7 @@ import { provideStore, StoreModule } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
+import { ArticleModule } from './article/article.module';
 import { AuthModule } from './auth/auth.module';
 import { GlobalFeedModule } from './glabalFeed/globalFeed.module';
 import { AuthInterceptorService } from './shared/services/authinterceptor.service';
@@ -37,7 +38,7 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptorService,
       multi: true,
     },
-    importProvidersFrom(AuthModule, GlobalFeedModule, YourFeedModule, TagFeedModule),
+    importProvidersFrom(AuthModule, GlobalFeedModule, YourFeedModule, TagFeedModule, ArticleModule),
     provideClientHydration(),
     importProvidersFrom(StoreModule.forRoot({})),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
