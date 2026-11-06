@@ -9,6 +9,7 @@ import { currentUserSelector } from '../../../auth/store/selectors';
 import { AppStateInterface } from '../../../shared/types/appState.interface';
 import { ArticleInterface } from '../../../shared/types/article.interface';
 import { CurrentUserInterface } from '../../../shared/types/currentUser.interface';
+import { deleteArticleAction } from '../../store/actions/deleteArticle.action';
 import { getArticlesAction } from '../../store/actions/getArticle.action';
 import { articleSelector, errorSelector, isLoadingSelector } from '../../store/selectors';
 
@@ -72,5 +73,9 @@ export class ArticleComponent implements OnInit, OnDestroy {
 
   fetchArticle(): void {
     this.store.dispatch(getArticlesAction({ slug: this.slug }));
+  }
+
+  deleteArticle(slug: string): void {
+    this.store.dispatch(deleteArticleAction({ slug: slug }));
   }
 }
